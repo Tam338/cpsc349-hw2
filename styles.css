@@ -1,9 +1,15 @@
 /* TO-DO */
+body {
+    margin: 0;
+    background-color: grey;
+}
+
 .header {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 130px;
+    align-items: flex-start;
+    padding-top: 35px;
+    height: 100px;
 
     background-color: hsl(207, 91%, 13%);
     color: white;
@@ -17,7 +23,7 @@
     justify-content: center;
     align-items: center;
     height: 70px;
-    
+    gap: 8px;
 
     background-color: hsl(207, 74%, 21%);
 }
@@ -32,4 +38,43 @@
     width: 135px;
     border-radius: 5px;
     height: 25px;
+}
+
+#movie-display {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    padding: 25px;
+}
+
+.movie-poster {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+    height: 500px;
+}
+
+.movie-poster img {
+    width: 80%;
+    display: block;
+    align-content: center;
+    margin-top: 20px;
+    padding-left: 60px;
+    padding-right: 60px
+}
+
+.movie-info {
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+    justify-content: center;
+    align-items: center;
+}
+
+.movie-info h3 {
+    font-size: 30px;
+    align-content: center;
 }
