@@ -1,8 +1,10 @@
 // To-Do
-// 1. API Configuration
-const API_KEY = 'dc4b897051cff370b53ad1317c609445'; // You must get this from TMDB
-const BASE_URL = 'https://api.themoviedb.org/3';
-const IMG_PATH = 'https://image.tmdb.org/t/p/w500';
+
+const api_key = 'dc4b897051cff370b53ad1317c609445';
+const api_base_url = 'https://api.themoviedb.org/3';
+const api_image_url = 'https://image.tmdb.org/t/p/w1280';
+
+
 const DISCOVER_URL = `${BASE_URL}/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}`;
 const SEARCH_URL = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=`;
 
