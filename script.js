@@ -45,13 +45,16 @@ function displayMovies(movies)
     );
 }
 
+let currentMovies = [];
+
 async function getMovies(url) // pulling movies from the database
 {
     const response = await fetch(url); //response stores the data with fetch
     const data = await response.json(); // data stores the data stored in response, and translate to json
 
     //the data has been successfully pull from database, now we display them on web page
-    displayMovies(data.results);
+    currentMovies = data.results;
+    displayMovies(currentMovies);
 }
 
 getMovies(defaultURL);
@@ -61,6 +64,8 @@ getMovies(defaultURL);
 
 ///////////// functionality /////////////
 
+
+//search functionality
 const search = document.getElementById("searchQuery");
 
 const handleInput = (event_) => {
@@ -79,5 +84,39 @@ const handleInput = (event_) => {
 search.addEventListener('input', handleInput);
 
 
+//sort by functionality
+const sortContainer = document.getElementById("sort-container");
+
+const handleSort = (event_) => {
+    const sortType = event_.target.value;
+
+    let sorted_url = `${apiBaseUrl}/discover/movie?api_key=${apiKey}`;
+
+    if( sortType === "Sort By")
+    {
+        sorted_url = defaultURL;
+    }
+    else if( sortType === "Release Date (Asc)")
+    {
+        sorted_url += "&sort_by=primary_release_date.asc";
+    }
+    else if (sortType == "Release Date (Desc)")
+    {
+        sorted_url += "&sort_by=primary_release_date.desc";
+    }
+    else if (sortType == "Rating (Asc)")
+    {
+        sorted_url += "&sort_by=vote_average.asc";
+    }
+    else if (sortType == "Rating (Desc)")
+    {
+        sorted_url += "&sort_by=vote_average.desc";
+    }
+
+
+    getMovies(sorted_url);
+}
+
+sortContainer.addEventListener('change', handleSort);
 
 
