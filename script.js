@@ -8,16 +8,6 @@ const apiImageUrl = 'https://image.tmdb.org/t/p/w1280';
 const defaultURL = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}`;
 const searchURL = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
 
-async function getMovies(url) // pulling movies from the database
-{
-    const response = await fetch(url); //response stores the data with fetch
-    const data = await response.json(); // data stores the data stored in response, and translate to json
-
-    //the data has been successfully pull from database, now we display them on web page
-    displayMovies(data.results);
-}
-
-getMovies(defaultURL);
 
 const movieDisplay = document.getElementById("movie-display");
 
@@ -30,11 +20,12 @@ function displayMovies(movies)
             //declaring the neccessary variable for movie
             const poster_path = movie.poster_path;
             const title = movie.title;
-            const vote_average = movie.vote_average;
+            const vote_average = movie.vote_average.toFixed(1);
             const release_date = movie.release_date;
 
             //defining each movie
             const movieElement = document.createElement('div');
+            movieElement.classList.add("movie-poster")
 
             movieElement.innerHTML =
             `
@@ -51,3 +42,13 @@ function displayMovies(movies)
     );
 }
 
+async function getMovies(url) // pulling movies from the database
+{
+    const response = await fetch(url); //response stores the data with fetch
+    const data = await response.json(); // data stores the data stored in response, and translate to json
+
+    //the data has been successfully pull from database, now we display them on web page
+    displayMovies(data.results);
+}
+
+getMovies(defaultURL);
