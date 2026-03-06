@@ -8,8 +8,10 @@ const apiImageUrl = 'https://image.tmdb.org/t/p/w1280';
 const defaultURL = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}`;
 const searchURL = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
 
-
 const movieDisplay = document.getElementById("movie-display");
+const prevButton = document.getElementById("previous-button");
+const nextButton = document.getElementById("next-button");
+
 
 function displayMovies(movies)
 {
@@ -45,8 +47,6 @@ function displayMovies(movies)
     );
 }
 
-let currentMovies = [];
-
 async function getMovies(url) // pulling movies from the database
 {
     const response = await fetch(url); //response stores the data with fetch
@@ -55,6 +55,15 @@ async function getMovies(url) // pulling movies from the database
     //the data has been successfully pull from database, now we display them on web page
     currentMovies = data.results;
     displayMovies(currentMovies);
+
+    //data for buttons
+    currentPage = data.page;
+    totalPage = data.total_pages;
+    prevButton.disabled = currentPage <= 1;
+    nextButton.disabled = currentPage == totalPage;
+
+    document.getElementById("page_info").innerHTML = `Page ${currentPage} of ${totalPage}`;
+
 }
 
 getMovies(defaultURL);
@@ -68,7 +77,7 @@ getMovies(defaultURL);
 //search functionality
 const search = document.getElementById("searchQuery");
 
-const handleInput = (event_) => {
+const handleSearch = (event_) => {
     const inputValue = event_.target.value.trim();
 
     if( inputValue && inputValue !== '')
@@ -81,7 +90,7 @@ const handleInput = (event_) => {
         }
 } 
 
-search.addEventListener('input', handleInput);
+search.addEventListener('input', handleSearch);
 
 
 //sort by functionality
@@ -120,3 +129,15 @@ const handleSort = (event_) => {
 sortContainer.addEventListener('change', handleSort);
 
 
+
+//buttons
+
+const currentPage = 1;
+
+const handleNextButton = () {
+    currentPage++;
+    let nextPage = defaultURL +`&page=${currentPage}`;
+    getMovies(nextPage);
+}; 
+
+nextButton.addEventListener('click' , handleNextButton);
