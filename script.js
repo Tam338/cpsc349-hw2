@@ -59,12 +59,12 @@ async function getMovies(url) // pulling movies from the database
     displayMovies(currentMovies);
 
     //data for buttons
-    currentPage = data.page;
+    page = data.page;
     totalPage = data.total_pages;
-    prevButton.disabled = currentPage <= 1;
-    nextButton.disabled = currentPage == totalPage;
+    prevButton.disabled = page <= 1;
+    nextButton.disabled = page == totalPage;
 
-    document.getElementById("page_info").innerHTML = `Page ${currentPage} of ${totalPage}`;
+    document.getElementById("page_info").innerHTML = `Page ${page} of ${totalPage}`;
 }
 
 getMovies(currentPage);
