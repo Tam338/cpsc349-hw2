@@ -5,13 +5,14 @@ const apiBaseUrl = 'https://api.themoviedb.org/3';
 const apiImageUrl = 'https://image.tmdb.org/t/p/w1280';
 
 
-const defaultURL = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}`;
+const defaultURL = `${apiBaseUrl}/discover/movie?api_key=${apiKey}`;
 const searchURL = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
 
 const movieDisplay = document.getElementById("movie-display");
 const prevButton = document.getElementById("previous-button");
 const nextButton = document.getElementById("next-button");
 
+let currentPage = defaultURL;
 
 function displayMovies(movies)
 {
@@ -63,7 +64,6 @@ async function getMovies(url) // pulling movies from the database
     nextButton.disabled = currentPage == totalPage;
 
     document.getElementById("page_info").innerHTML = `Page ${currentPage} of ${totalPage}`;
-
 }
 
 getMovies(defaultURL);
@@ -82,7 +82,7 @@ const handleSearch = (event_) => {
 
     if( inputValue && inputValue !== '')
     {
-        getMovies(searchURL + '&query=' + inputValue);
+        currentPage = getMovies(searchURL + '&query=' + inputValue);
     } 
     else
         {
@@ -99,7 +99,7 @@ const sortContainer = document.getElementById("sort-container");
 const handleSort = (event_) => {
     const sortType = event_.target.value;
 
-    let sorted_url = `${apiBaseUrl}/discover/movie?api_key=${apiKey}`;
+    let sorted_url = defaultURL;
 
     if( sortType === "Sort By")
     {
@@ -123,7 +123,7 @@ const handleSort = (event_) => {
     }
 
 
-    getMovies(sorted_url);
+    currentPage = getMovies(sorted_url);
 }
 
 sortContainer.addEventListener('change', handleSort);
@@ -132,12 +132,25 @@ sortContainer.addEventListener('change', handleSort);
 
 //buttons
 
-const currentPage = 1;
+let currentPageCounter = 1;
 
-const handleNextButton = () {
-    currentPage++;
-    let nextPage = defaultURL +`&page=${currentPage}`;
+const handleNextButton = () => {
+    currentPageCounter++;
+    //let nextPage = defaultURL +`&page=${currentPageCounter}`;
+    let nextPage = currentPage + `&page=${currentPageCounter}`;
+
     getMovies(nextPage);
 }; 
 
 nextButton.addEventListener('click' , handleNextButton);
+
+
+const handlePrevButton = () => {
+    currentPageCounter--;
+    //let prevPage = defaultURL +`&page=${currentPageCounter}`;
+    let prevPage = currentPage +`&page=${currentPageCounter}`;
+
+    getMovies(prevPage);
+}; 
+
+prevButton.addEventListener('click' , handlePrevButton);
