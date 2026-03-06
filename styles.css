@@ -74,3 +74,25 @@ body {
     font-size: 30px;
     align-content: center;
 }
+
+.footer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.footer button {
+    color: white;
+    font-size: 17px;
+    background-color: rgb(29, 139, 223);
+    border-radius: 10px;
+    width: 100px;
+    border: none;
+}
+
+.footer button:hover {
+    background-color: rgb(61, 154, 225);
+    cursor: pointer;
+}
