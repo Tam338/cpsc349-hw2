@@ -15,6 +15,9 @@ function displayMovies(movies)
 {
     movieDisplay.innerHTML = '';
 
+
+    //movies array using method forEach to add movies into the movieDisplay
+    //it's using an anonymous function, which takes in movie object as arg, to grab the movie's info
     movies.forEach(
         (movie) => {
             //declaring the neccessary variable for movie
@@ -52,3 +55,29 @@ async function getMovies(url) // pulling movies from the database
 }
 
 getMovies(defaultURL);
+
+
+
+
+///////////// functionality /////////////
+
+const search = document.getElementById("searchQuery");
+
+const handleInput = (event_) => {
+    const inputValue = event_.target.value.trim();
+
+    if( inputValue && inputValue !== '')
+    {
+        getMovies(searchURL + '&query=' + inputValue);
+    } 
+    else
+        {
+            getMovies(defaultURL);
+        }
+} 
+
+search.addEventListener('input', handleInput);
+
+
+
+

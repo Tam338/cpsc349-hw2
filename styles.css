@@ -24,14 +24,13 @@ body {
     align-items: center;
     height: 70px;
     gap: 8px;
-
     background-color: hsl(207, 74%, 21%);
 }
 
 .search-engine input {
     width: 135px;
     border-radius: 5px;
-    height: 20px;
+    height: 23px;
 }
 
 .search-engine select {
