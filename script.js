@@ -13,6 +13,7 @@ const prevButton = document.getElementById("previous-button");
 const nextButton = document.getElementById("next-button");
 
 let currentPage = defaultURL;
+let currentPageCounter = 1;
 
 function displayMovies(movies)
 {
@@ -66,7 +67,7 @@ async function getMovies(url) // pulling movies from the database
     document.getElementById("page_info").innerHTML = `Page ${currentPage} of ${totalPage}`;
 }
 
-getMovies(defaultURL);
+getMovies(currentPage);
 
 
 
@@ -82,11 +83,14 @@ const handleSearch = (event_) => {
 
     if( inputValue && inputValue !== '')
     {
-        currentPage = getMovies(searchURL + '&query=' + inputValue);
+        currentPage = searchURL + '&query=' + inputValue;
+        currentPageCounter = 1;
+        getMovies(currentPage);
     } 
     else
         {
-            getMovies(defaultURL);
+            currentPage = defaultURL;
+            getMovies(currentPage);
         }
 } 
 
@@ -123,7 +127,9 @@ const handleSort = (event_) => {
     }
 
 
-    currentPage = getMovies(sorted_url);
+    currentPage = sorted_url;
+    currentPageCounter = 1;
+    getMovies(currentPage);
 }
 
 sortContainer.addEventListener('change', handleSort);
@@ -132,7 +138,7 @@ sortContainer.addEventListener('change', handleSort);
 
 //buttons
 
-let currentPageCounter = 1;
+
 
 const handleNextButton = () => {
     currentPageCounter++;
